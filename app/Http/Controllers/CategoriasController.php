@@ -43,7 +43,7 @@ class CategoriasController extends Controller
         $categorias->descripcion = $request->descripcion;
         $categorias->condicion = '1';
        //para inserta este objecto enla table categoria de la base de datos
-        $categoria->save();
+        $categorias->save();
 
     }
 
