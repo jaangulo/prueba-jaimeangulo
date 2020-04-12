@@ -5,12 +5,12 @@
  @section('contenido')
  <template v-if="menu==0">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <example-component></example-component>
+ <h1>Contenido del menu0</h1>
  </template>
 
  <template v-if="menu==1">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <h1>Contenido del menu1</h1>
+   <categoria>Contenido del menu1</categoria>
  </template>
  <template v-if="menu==2">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
