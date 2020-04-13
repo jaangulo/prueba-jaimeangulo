@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Categoria;
+
 class CategoriasController extends Controller
 {
     /**
@@ -11,23 +12,12 @@ class CategoriasController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //almacenar todo el metodo all de la calse categoria  
+        if (!$request->ajax()) return redirect('/');
         $categorias = Categoria::all();
         return $categorias;
-    
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    }   
 
     /**
      * Store a newly created resource in storage.
@@ -36,38 +26,15 @@ class CategoriasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-        $categorias = new Categoria();
-        //assede a cada una de las propuedades
-        $categorias->nombre = $request->nombre;
-        $categorias->descripcion = $request->descripcion;
-        $categorias->condicion = '1';
-       //para inserta este objecto enla table categoria de la base de datos
-        $categorias->save();
-
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
     {
-        //
+        if (!$request->ajax()) return redirect('/');
+        $categoria = new Categoria();
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->condicion = '1';
+        $categoria->save();
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+  
 
     /**
      * Update the specified resource in storage.
@@ -78,40 +45,29 @@ class CategoriasController extends Controller
      */
     public function update(Request $request)
     {
-        //es similar al store realiza una comprovacion antes de salvar los datos
-        $categorias =  Categoria::findOrFail($request->id);
-        //assede a cada una de las propuedades
-        $categorias->nombre = $request->nombre;
-        $categorias->descripcion = $request->descripcion;
-        $categorias->condicion = '1';
-       //para inserta este objecto enla table categoria de la base de datos
+        if (!$request->ajax()) return redirect('/');
+        $categoria = Categoria::findOrFail($request->id);
+        $categoria->nombre = $request->nombre;
+        $categoria->descripcion = $request->descripcion;
+        $categoria->condicion = '1';
         $categoria->save();
     }
 
     public function desactivar(Request $request)
     {
-        $categorias =  Categoria::findOrFail($request->id);
-        $categorias->condicion = '0';
-       //para inserta este objecto enla table categoria de la base de datos
+        if (!$request->ajax()) return redirect('/');
+        $categoria = Categoria::findOrFail($request->id);
+        $categoria->condicion = '0';
         $categoria->save();
     }
 
     public function activar(Request $request)
     {
-        $categorias =  Categoria::findOrFail($request->id);
-        $categorias->condicion = '1';
-       //para inserta este objecto enla table categoria de la base de datos
+        if (!$request->ajax()) return redirect('/');
+        $categoria = Categoria::findOrFail($request->id);
+        $categoria->condicion = '1';
         $categoria->save();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
