@@ -2169,40 +2169,48 @@ __webpack_require__.r(__webpack_exports__);
 
       me.listarArticulo(page, buscar, criterio);
     },
-    registrarCategoria: function registrarCategoria() {
-      if (this.validarCategoria()) {
+    registrarArticulo: function registrarArticulo() {
+      if (this.validarArticulo()) {
         return;
       }
 
       var me = this;
-      axios.post('/categoria/registrar', {
+      axios.post('/articulo/registrar', {
+        'idcategoria': this.idcategoria,
+        'codigo': this.codigo,
         'nombre': this.nombre,
+        'stock': this.stock,
+        'precio_venta': this.precio_venta,
         'descripcion': this.descripcion
       }).then(function (response) {
         me.cerrarModal();
-        me.listarCategoria(1, '', 'nombre');
+        me.listarArticulo(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    actualizarCategoria: function actualizarCategoria() {
-      if (this.validarCategoria()) {
+    actualizarArticulo: function actualizarArticulo() {
+      if (this.validarArticulo()) {
         return;
       }
 
       var me = this;
-      axios.put('/categoria/actualizar', {
+      axios.put('/articulo/actualizar', {
+        'idcategoria': this.idcategoria,
+        'codigo': this.codigo,
         'nombre': this.nombre,
+        'stock': this.stock,
+        'precio_venta': this.precio_venta,
         'descripcion': this.descripcion,
-        'id': this.categoria_id
+        'id': this.articulo_id
       }).then(function (response) {
         me.cerrarModal();
-        me.listarCategoria(1, '', 'nombre');
+        me.listarArticulo(1, '', 'nombre');
       })["catch"](function (error) {
         console.log(error);
       });
     },
-    desactivarCategoria: function desactivarCategoria(id) {
+    desactivarArticulo: function desactivarArticulo(id) {
       var _this = this;
 
       swal({
@@ -2220,10 +2228,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this;
-          axios.put('/categoria/desactivar', {
+          axios.put('/articulo/desactivar', {
             'id': id
           }).then(function (response) {
-            me.listarCategoria(1, '', 'nombre');
+            me.listarArticulo(1, '', 'nombre');
             swal('Desactivado!', 'El registro ha sido desactivado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -2232,7 +2240,7 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === swal.DismissReason.cancel) {}
       });
     },
-    activarCategoria: function activarCategoria(id) {
+    activarArticulo: function activarArticulo(id) {
       var _this2 = this;
 
       swal({
@@ -2250,10 +2258,10 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (result) {
         if (result.value) {
           var me = _this2;
-          axios.put('/categoria/activar', {
+          axios.put('/articulo/activar', {
             'id': id
           }).then(function (response) {
-            me.listarCategoria(1, '', 'nombre');
+            me.listarArticulo(1, '', 'nombre');
             swal('Activado!', 'El registro ha sido activado con éxito.', 'success');
           })["catch"](function (error) {
             console.log(error);
@@ -2262,18 +2270,27 @@ __webpack_require__.r(__webpack_exports__);
         result.dismiss === swal.DismissReason.cancel) {}
       });
     },
-    validarCategoria: function validarCategoria() {
-      this.errorCategoria = 0;
-      this.errorMostrarMsjCategoria = [];
-      if (!this.nombre) this.errorMostrarMsjCategoria.push("El nombre de la categoría no puede estar vacío.");
-      if (this.errorMostrarMsjCategoria.length) this.errorCategoria = 1;
-      return this.errorCategoria;
+    validarArticulo: function validarArticulo() {
+      this.errorArticulo = 0;
+      this.errorMostrarMsjArticulo = [];
+      if (this.idcategoria == 0) this.errorMostrarMsjArticulo.push("Seleccione una categoría.");
+      if (!this.nombre) this.errorMostrarMsjArticulo.push("El nombre del artículo no puede estar vacío.");
+      if (!this.stock) this.errorMostrarMsjArticulo.push("El stock del artículo debe ser un número y no puede estar vacío.");
+      if (!this.precio_venta) this.errorMostrarMsjArticulo.push("El precio venta del artículo debe ser un número y no puede estar vacío.");
+      if (this.errorMostrarMsjArticulo.length) this.errorArticulo = 1;
+      return this.errorArticulo;
     },
     cerrarModal: function cerrarModal() {
       this.modal = 0;
       this.tituloModal = '';
+      this.idcategoria = 0;
+      this.nombre_categoria = '';
+      this.codigo = '';
       this.nombre = '';
+      this.precio_venta = 0;
+      this.stock = 0;
       this.descripcion = '';
+      this.errorArticulo = 0;
     },
     abrirModal: function abrirModal(modelo, accion) {
       var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
@@ -2286,7 +2303,12 @@ __webpack_require__.r(__webpack_exports__);
                 {
                   this.modal = 1;
                   this.tituloModal = 'Registrar Artículo';
+                  this.idcategoria = 0;
+                  this.nombre_categoria = '';
+                  this.codigo = '';
                   this.nombre = '';
+                  this.precio_venta = 0;
+                  this.stock = 0;
                   this.descripcion = '';
                   this.tipoAccion = 1;
                   break;
@@ -2298,8 +2320,12 @@ __webpack_require__.r(__webpack_exports__);
                   this.modal = 1;
                   this.tituloModal = 'Actualizar Artículo';
                   this.tipoAccion = 2;
-                  this.categoria_id = data['id'];
+                  this.articulo_id = data['id'];
+                  this.idcategoria = data['idcategoria'];
+                  this.codigo = data['codigo'];
                   this.nombre = data['nombre'];
+                  this.stock = data['stock'];
+                  this.precio_venta = data['precio_venta'];
                   this.descripcion = data['descripcion'];
                   break;
                 }
@@ -2326,8 +2352,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
 //
 //
 //
@@ -39179,9 +39203,7 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.desactivarCategoria(
-                                        articulo.id
-                                      )
+                                      return _vm.desactivarArticulo(articulo.id)
                                     }
                                   }
                                 },
@@ -39196,7 +39218,7 @@ var render = function() {
                                   attrs: { type: "button" },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activarCategoria(articulo.id)
+                                      return _vm.activarArticulo(articulo.id)
                                     }
                                   }
                                 },
@@ -39697,7 +39719,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.registrarCategoria()
+                            return _vm.registrarArticulo()
                           }
                         }
                       },
@@ -39713,7 +39735,7 @@ var render = function() {
                         attrs: { type: "button" },
                         on: {
                           click: function($event) {
-                            return _vm.actualizarCategoria()
+                            return _vm.actualizarArticulo()
                           }
                         }
                       },
@@ -40310,13 +40332,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("ol", { staticClass: "breadcrumb" }, [
-      _c("li", { staticClass: "breadcrumb-item" }, [_vm._v("Home")]),
-      _vm._v(" "),
       _c("li", { staticClass: "breadcrumb-item" }, [
-        _c("a", { attrs: { href: "#" } }, [_vm._v("Admin")])
-      ]),
-      _vm._v(" "),
-      _c("li", { staticClass: "breadcrumb-item active" }, [_vm._v("Dashboard")])
+        _c("a", { attrs: { href: "/" } }, [_vm._v("Escritorio")])
+      ])
     ])
   },
   function() {
