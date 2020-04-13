@@ -30,6 +30,11 @@ Route::put('/categoria/actualizar', 'CategoriasController@update');
 Route::put('/categoria/desactivar', 'CategoriasController@desactivar');
 Route::put('/categoria/activar', 'CategoriasController@activar');
 
+Route::get('/articulo', 'ArticuloController@index');
+Route::post('/articulo/registrar', 'ArticuloController@store');
+Route::put('/articulo/actualizar', 'ArticuloController@update');
+Route::put('/articulo/desactivar', 'ArticuloController@desactivar');
+Route::put('/articulo/activar', 'ArticuloController@activar');
 
 Auth::routes();
 

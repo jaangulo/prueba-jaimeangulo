@@ -14,7 +14,7 @@
  </template>
  <template v-if="menu==2">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <h1>Contenido del menu2</h1>
+   <articulo>Contenido del menu2</articulo>
  </template>
  <template v-if="menu==3">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
