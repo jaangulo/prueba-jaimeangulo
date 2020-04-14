@@ -22,7 +22,7 @@
  </template>
  <template v-if="menu==4">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <h1>Contenido del menu4</h1>
+   <proveedor>Contenido del menu4</proveedor>
  </template>
  <template v-if="menu==5">
  <!-- // componente  que se encuentra en la carpeta components de vue -->

@@ -14,8 +14,8 @@ class CreateArticulosTable extends Migration
     public function up()
     {
         Schema::create('articulos', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('idcategoria')->unsigned(); //unsigned porque es una llave foranea
+            $table->bigincrements('id');
+            $table->unsignedBigInteger('idcategoria')->unsigned(); //unsigned porque es una llave foranea
             $table->string('codigo', 50)->nullable();
             $table->string('nombre', 100)->unique();//campo unico
             $table->decimal('precio_venta', 11, 2);
