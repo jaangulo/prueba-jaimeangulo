@@ -1,4 +1,4 @@
-<template>
+¿<template>
             <main class="main">
             <!-- Breadcrumb -->
             <ol class="breadcrumb">
@@ -115,7 +115,10 @@
                                 <div class="form-group row">
                                     <label class="col-md-3 form-control-label" for="text-input">Código</label>
                                     <div class="col-md-9">
-                                        <input type="text" v-model="codigo" class="form-control" placeholder="Código de barras">                                        
+                                        <input type="text" v-model="codigo" class="form-control" placeholder="Código de barras"> 
+                                        <barcode :value="codigo" :options="{ format: 'EAN-13' }">
+                                            Generando código de barras.    
+                                        </barcode>                                       
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -167,6 +170,7 @@
 </template>
 
 <script>
+    import VueBarcode from 'vue-barcode';
     export default {
         data (){
             return {
@@ -198,6 +202,9 @@
                 arrayCategoria :[]
             }
         },
+        components: {
+        'barcode': VueBarcode
+    },
         computed:{
             isActived: function(){
                 return this.pagination.current_page;
@@ -304,7 +311,7 @@
             },
             desactivarArticulo(id){
                swal({
-                title: 'Esta seguro de desactivar esta categoría?',
+                title: 'Esta seguro de desactivar este artículo?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
@@ -343,7 +350,7 @@
             },
             activarArticulo(id){
                swal({
-                title: 'Esta seguro de activar esta categoría?',
+                title: 'Esta seguro de activar este artículo?',
                 type: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
