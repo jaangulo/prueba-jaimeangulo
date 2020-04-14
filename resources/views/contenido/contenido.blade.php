@@ -30,7 +30,7 @@
  </template>
  <template v-if="menu==6">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <h1>Contenido del menu6</h1>
+   <cliente>Contenido del menu6</cliente>
  </template>
  <template v-if="menu==7">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
