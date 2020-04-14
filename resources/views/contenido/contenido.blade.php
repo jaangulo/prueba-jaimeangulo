@@ -34,11 +34,11 @@
  </template>
  <template v-if="menu==7">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <h1>Contenido del menu7</h1>
+   <usuario>Contenido del menu7</usuario>
  </template>
  <template v-if="menu==8">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
-   <h1>Contenido del menu8</h1>
+   <rol>Contenido del menu8</rol>
  </template>
  <template v-if="menu==9">
  <!-- // componente  que se encuentra en la carpeta components de vue -->
